@@ -11,8 +11,7 @@ from get_attempts import get_attempts_from_acmp, get_attempts_from_codeforces
 
 TIME_UPDATE = time.time()
 
-key = '13cf673e9db6fbf3f096ee120086c8925939cd4d'
-secret = 'eacbcadbefc1ae089c11d216bfc0785bf233152d'
+DEBUG = True
 STATUS_EMPTY = 'EM'
 CODEFORCES_STRING = 'cf'
 ACMP_STRING = 'acmp'
@@ -48,16 +47,16 @@ def update_users():
     users.clear()
     file = open('static/users.txt', 'r', encoding='utf-8')
     b_users = file.readlines()
-    for i in range(len(b_users)):
-        buffer = b_users[i].split()
-        users[buffer[0]] = {CODEFORCES_STRING: buffer[0]}
-
-        if(buffer[1] == STATUS_EMPTY):
-            users[buffer[0]][ACMP_STRING] = None
-        else:
-            users[buffer[0]][ACMP_STRING] = buffer[1]
-
     file.close()
+    for i in range(len(b_users)):
+        cf_handle, acmp_id = map(str, b_users[i].split())
+        users[cf_handle] = {CODEFORCES_STRING: cf_handle}
+
+        if(acmp_id == STATUS_EMPTY):
+            users[cf_handle][ACMP_STRING] = None
+        else:
+            users[cf_handle][ACMP_STRING] = acmp_id
+
 
 def update_problems():
     global groupsofproblems, tables
@@ -261,6 +260,5 @@ def editadmins():
         return redirect('/')
 
 
-DEBUG = True
 if DEBUG:
     app.run(port=8080, host='127.0.0.1')

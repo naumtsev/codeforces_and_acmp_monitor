@@ -1,16 +1,18 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from requests import get
-from xml.etree import ElementTree
-import urllib.request
-from flask import render_template
-
 
 def get_attempts_from_acmp(user_id):
     url = 'http://acmp.ru/index.asp?main=user&id={}'.format(user_id)
-    res = urllib.request.urlopen(url).read().decode(errors='ignore')
+    res = get(url).text.encode().decode('ascii', errors='ignore')
+    #print(res)
     text = res.split('<b class=btext>')
+    print(text)
+    solved=  []
+    '''
     #for i in range(len(text)):
     #    print(i, text[i])
-    parse = text[4].replace('href=?main=task&id_task=', '').replace('<p class=text>', '').replace('</p>', '').split('</a>')
+    parse = str(text[4]).replace('href=?main=task&id_task=', '').replace('<p class=text>', '').replace('</p>', '').split('</a>')
     solved = []
     for tt in parse:
         numb = ''
@@ -21,6 +23,7 @@ def get_attempts_from_acmp(user_id):
                 break
         solved.append(numb[::-1])
     del solved[-1]
+    '''
     return solved
 
 
@@ -37,13 +40,3 @@ def get_attempts_from_codeforces(handle):
         if(i['verdict'] == 'OK'):
             attempts.append(str(contestId) + index)
     return attempts
-
-
-
-
-def get_attempts_from_informatics(user_id):
-    url = 'https://informatics.msk.ru/submits/view.php?user_id={}#1'.format(user_id)
-    res = urllib.request.urlopen(url).read().decode(errors='ignore')
-    print(res)
-    solved = []
-    return solved
