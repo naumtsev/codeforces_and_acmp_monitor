@@ -1,13 +1,11 @@
 from requests import get
 from xml.etree import ElementTree
-
-
-
+import urllib.request
+from flask import render_template
 
 
 def get_attempts_from_acmp(user_id):
     url = 'http://acmp.ru/index.asp?main=user&id={}'.format(user_id)
-    import urllib.request
     res = urllib.request.urlopen(url).read().decode(errors='ignore')
     text = res.split('<b class=btext>')
     #for i in range(len(text)):
@@ -39,3 +37,13 @@ def get_attempts_from_codeforces(handle):
         if(i['verdict'] == 'OK'):
             attempts.append(str(contestId) + index)
     return attempts
+
+
+
+
+def get_attempts_from_informatics(user_id):
+    url = 'https://informatics.msk.ru/submits/view.php?user_id={}#1'.format(user_id)
+    res = urllib.request.urlopen(url).read().decode(errors='ignore')
+    print(res)
+    solved = []
+    return solved

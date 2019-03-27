@@ -7,7 +7,7 @@ from wtforms import StringField, SubmitField, TextAreaField, PasswordField, Sele
 from wtforms.widgets import TextArea, TextInput
 from wtforms.validators import DataRequired, Email
 import time
-from get_attempts import  get_attempts_from_acmp, get_attempts_from_codeforces
+from get_attempts import get_attempts_from_acmp, get_attempts_from_codeforces
 
 TIME_UPDATE = time.time()
 
