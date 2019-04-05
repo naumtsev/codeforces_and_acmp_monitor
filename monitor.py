@@ -259,6 +259,26 @@ def editadmins():
         load_admins()
         return redirect('/')
 
+@app.route('/notebook', methods=['GET', 'POST'])
+def editnotebook():
+    if 'login' not in session:
+        return redirect('/')
+
+    NOW_TIME = time.time()
+    if request.method == 'GET':
+        file = open('static/notebook.txt', 'r', encoding='utf-8')
+        data = file.read()
+        file.close()
+        return render_template('editfile.html',session=session, nowtitle='Edit notebook',
+                               defaulttext=data, last_update=max(0, int(NOW_TIME - TIME_UPDATE)))
+
+    if request.method == 'POST':
+        text = request.form['textfield'].split('\n')
+        file = open('static/notebook.txt', 'w', encoding='utf-8')
+        file.writelines(text)
+        file.close()
+        return redirect('/')
+
 
 if DEBUG:
     app.run(port=8080, host='127.0.0.1')

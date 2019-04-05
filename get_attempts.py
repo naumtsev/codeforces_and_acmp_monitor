@@ -3,13 +3,13 @@
 from requests import get
 
 def get_attempts_from_acmp(user_id):
+    # Раскоментить, когда будете ставить на свой хостинг
+    '''
     url = 'http://acmp.ru/index.asp?main=user&id={}'.format(user_id)
     res = get(url).text.encode().decode('ascii', errors='ignore')
-    #print(res)
     text = res.split('<b class=btext>')
-    print(text)
-    solved=  []
-    '''
+    solved = []
+
     #for i in range(len(text)):
     #    print(i, text[i])
     parse = str(text[4]).replace('href=?main=task&id_task=', '').replace('<p class=text>', '').replace('</p>', '').split('</a>')
@@ -23,11 +23,14 @@ def get_attempts_from_acmp(user_id):
                 break
         solved.append(numb[::-1])
     del solved[-1]
-    '''
+
     return solved
+    '''
+    return []
 
 
 def get_attempts_from_codeforces(handle):
+
     map_request = 'http://codeforces.com/api/user.status?handle={}'.format(handle)
     attempts = []
     request = get(map_request).json()
