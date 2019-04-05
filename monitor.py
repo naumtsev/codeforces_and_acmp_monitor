@@ -209,7 +209,7 @@ def edittasks():
         data = file.read()
         file.close()
         return render_template('editfile.html',session=session, nowtitle='Edit Tasks',
-                               defaulttext=data, last_update= max(0, int(NOW_TIME - TIME_UPDATE)))
+                               defaulttext=data, last_update=max(0, int(NOW_TIME - TIME_UPDATE)))
     if request.method == 'POST':
         text = request.form['textfield']
         file = open('static/groupsofproblems.txt', 'w', encoding='utf-8')
