@@ -1,31 +1,21 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from requests import get
+import bs4
+
 
 def get_attempts_from_acmp(user_id):
     # Раскоментить, когда будете ставить на свой хостинг
-    '''
+
     url = 'http://acmp.ru/index.asp?main=user&id={}'.format(user_id)
     res = get(url).text.encode().decode('ascii', errors='ignore')
-    text = res.split('<b class=btext>')
     solved = []
 
-    #for i in range(len(text)):
-    #    print(i, text[i])
-    parse = str(text[4]).replace('href=?main=task&id_task=', '').replace('<p class=text>', '').replace('</p>', '').split('</a>')
-    solved = []
-    for tt in parse:
-        numb = ''
-        for j in range(len(tt) - 1, -1, -1):
-            if tt[j].isdigit():
-                numb += tt[j]
-            else:
-                break
-        solved.append(numb[::-1])
-    del solved[-1]
-
+    dom = bs4.BeautifulSoup(res, 'lxml').find_all(class_='text')[0].find_all('a')
+    for ex in dom:
+        solved.append(ex.next_element)
     return solved
-    '''
+
     return []
 
 
@@ -43,3 +33,6 @@ def get_attempts_from_codeforces(handle):
         if(i['verdict'] == 'OK'):
             attempts.append(str(contestId) + index)
     return attempts
+
+
+get_attempts_from_acmp(211586)

@@ -125,6 +125,7 @@ def load_admins():
         buffer = i.split()
         log, pas = buffer[0], buffer[1]
         ADMINS[log] = pas
+    print(ADMINS)
 
     file.close()
 
