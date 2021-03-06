@@ -31,6 +31,3 @@ def get_attempts_from_codeforces(handle):
         if(i['verdict'] == 'OK'):
             attempts.append(str(contestId) + index)
     return attempts
-
-
-get_attempts_from_acmp(211586)

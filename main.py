@@ -16,6 +16,11 @@ STATUS_EMPTY = 'EM'
 CODEFORCES_STRING = 'cf'
 ACMP_STRING = 'acmp'
 
+ADMINS = dict()
+users = dict()
+
+groupsofproblems = []
+tables = []
 
 
 def load_groupsofproblems():
@@ -32,14 +37,6 @@ def load_groupsofproblems():
         buffer.append((title, problems))
     file.close()
     return buffer
-
-
-
-ADMINS = dict()
-users = dict()
-
-groupsofproblems = []
-tables = []
 
 
 def update_users():
