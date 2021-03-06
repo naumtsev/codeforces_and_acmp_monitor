@@ -5,8 +5,6 @@ import bs4
 
 
 def get_attempts_from_acmp(user_id):
-    # Раскоментить, когда будете ставить на свой хостинг
-
     url = 'http://acmp.ru/index.asp?main=user&id={}'.format(user_id)
     res = get(url).text.encode().decode('ascii', errors='ignore')
     solved = []
