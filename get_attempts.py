@@ -21,13 +21,20 @@ def get_attempts_from_codeforces(handle):
 
     map_request = 'http://codeforces.com/api/user.status?handle={}'.format(handle)
     attempts = []
-    request = get(map_request).json()
-    if request['status'] != 'OK':
+    req = get(map_request)
+    print(req.text)
+
+
+    try:
+        request = req.json()
+        if request['status'] != 'OK':
+            return attempts
+        for i in request['result']:
+            attempt = i['problem']
+            contestId = attempt['contestId']
+            index = attempt['index']
+            if(i['verdict'] == 'OK'):
+                attempts.append(str(contestId) + index)
         return attempts
-    for i in request['result']:
-        attempt = i['problem']
-        contestId = attempt['contestId']
-        index = attempt['index']
-        if(i['verdict'] == 'OK'):
-            attempts.append(str(contestId) + index)
-    return attempts
+    except:
+        return []
