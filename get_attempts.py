@@ -22,9 +22,6 @@ def get_attempts_from_codeforces(handle):
     map_request = 'http://codeforces.com/api/user.status?handle={}'.format(handle)
     attempts = []
     req = get(map_request)
-    print(req.text)
-
-
     try:
         request = req.json()
         if request['status'] != 'OK':
